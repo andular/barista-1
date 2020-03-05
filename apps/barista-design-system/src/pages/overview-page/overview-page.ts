@@ -26,7 +26,7 @@ import { Subscription, fromEvent } from 'rxjs';
 
 import { BaCategoryNavigationContent } from '@dynatrace/shared/barista-definitions';
 import { BaPage } from '../../pages/page-outlet';
-import { BaTile } from '../../layout/tile/tile';
+import { BaTile } from './components/tile';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 const LOCALSTORAGEKEY = 'baristaGridview';

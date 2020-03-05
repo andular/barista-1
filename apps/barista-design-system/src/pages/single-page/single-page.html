@@ -1,5 +1,5 @@
 <div class="ba-page-grid">
-  <nav
+  <!-- <nav
     ba-sidenav
     *ngIf="contents.sidenav"
     [sidenavData]="contents.sidenav"
@@ -14,13 +14,13 @@
     [wiki]="contents.wiki"
     [themable]="contents.themable"
   ></ba-page-header>
-
+-->
   <main class="ba-page-main" id="main" role="main">
     <article class="ba-single-page-content">
-      <ba-page-content [data]="contents.content"></ba-page-content>
+      <div [innerHTML]="content.content"></div>
     </article>
   </main>
-
+  <!--
   <ba-toc *ngIf="_showTOC()"></ba-toc>
 
   <ba-page-footer
@@ -28,5 +28,5 @@
     [tags]="contents.tags"
     [relatedTopics]="contents.related"
   >
-  </ba-page-footer>
+  </ba-page-footer> -->
 </div>

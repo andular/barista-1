@@ -23,15 +23,21 @@ import {
   Injector,
   Input,
   ViewContainerRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 
-import { BaPageMetaBase } from '@dynatrace/shared/barista-definitions';
+import {
+  BaPageMetaBase,
+  BaSinglePageContent,
+} from '@dynatrace/shared/barista-definitions';
 import { BaIndexPage } from './index-page/index-page';
 import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';
 import { BaIconOverviewPage } from './icon-overview-page/icon-overview-page';
 import { BaErrorPage } from './error-page/error-page';
 import { BaSearchPage } from './search-page/search-page';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { BaPageService } from '../shared/services/page.service';
 
 const LAYOUT_PAGES_MAPPING = {
   default: BaSinglePage,
@@ -77,9 +83,41 @@ export class BaPageOutlet {
     private _viewContainerRef: ViewContainerRef,
     private _injector: Injector,
     private _elementRef: ElementRef<HTMLElement>,
+    private _route: ActivatedRouteSnapshot,
+    private _pageService: BaPageService,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
+  ngOnInit(): void {
+    console.log('init page outlet');
+    const pageKey = this._route.url.join('/');
+    console.log(pageKey);
+    const page = this._pageService._cache.get(pageKey);
+    // if (page) {
+    //   this._renderPage(page);
+    // }
+  }
+
+  ngOnDestroy(): void {
+    if (this._currentPageComponentRef) {
+      this._currentPageComponentRef.destroy();
+    }
+  }
+
+  // private _renderPage(page: BaSinglePageContent) {
+  //   const layout = LAYOUT_PAGES_MAPPING[page.layout || 'default'];
+  //   const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
+  //     layout
+  //   );
+  //   this._currentPageComponentRef = componentFactory.create(this._injector) as ComponentRef<BaPage>;
+  //   this._currentPageComponentRef.instance.contents = page.content;
+
+  //   this._container.insert(this._currentPageComponentRef.hostView);
+  //   this._changeDetectorRef.markForCheck();
+  // }
+
   /** Dynamically creates a new page component and adds it to the DOM. */
+  // TODO: Can be removed?
   private _createPage(contents: BaPageMetaBase): void {
     this._destroyPage();
 

@@ -15,34 +15,32 @@
  */
 
 import { Component } from '@angular/core';
-import {
-  BaIndexPageContent,
-  BaPageLink,
-} from '@dynatrace/shared/barista-definitions';
-import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
-import { BaPage } from '../page-outlet';
-import { environment } from '../../environments/environment';
+import { BaPageService } from '../../shared/services/page.service';
+import { ActivatedRouteSnapshot } from '@angular/router';
+// import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
+// import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ba-index-page',
-  templateUrl: 'index-page.html',
-  styleUrls: ['index-page.scss'],
+  templateUrl: './index-page.html',
+  styleUrls: ['./index-page.scss'],
 })
-export class BaIndexPage implements BaPage {
-  contents: BaIndexPageContent;
+export class BaIndexPage {
+  contents = this._pageService._getCurrentPage();
 
-  /** @internal whether the internal content should be displayed */
-  _internal = environment.internal;
-  /** @internal array of recently visited pages */
-  _orderedItems: (BaPageLink | null)[];
-  /** @internal whether recently ordered items should be displayed */
-  _showOrderedItems: boolean;
+  constructor(private _pageService: BaPageService) {}
+  // /** @internal whether the internal content should be displayed */
+  // _internal = environment.internal;
+  // /** @internal array of recently visited pages */
+  // _orderedItems: (BaPageLink | null)[];
+  // /** @internal whether recently ordered items should be displayed */
+  _showOrderedItems: boolean = true;
 
-  constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {
-    this._orderedItems = this._recentlyOrderedService.getRecentlyOrderedItems();
-    // It's fine to only set this property once as it shouldn't change
-    // during runtime when staying on the index page.
-    this._showOrderedItems =
-      this._orderedItems.filter(item => item !== null).length > 0;
-  }
+  // constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {
+  //   this._orderedItems = this._recentlyOrderedService.getRecentlyOrderedItems();
+  //   // It's fine to only set this property once as it shouldn't change
+  //   // during runtime when staying on the index page.
+  //   this._showOrderedItems =
+  //     this._orderedItems.filter(item => item !== null).length > 0;
+  // }
 }

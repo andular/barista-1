@@ -42,7 +42,7 @@ import {
 
 import { createComponent } from '../../utils/create-component';
 import { wrapCodeLines } from '../../utils/wrap-code-lines';
-import { BaCopyToClipboardService } from '../../shared/copy-to-clipboard.service';
+import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 
 type BaSourceType = 'html' | 'ts' | 'scss';
 

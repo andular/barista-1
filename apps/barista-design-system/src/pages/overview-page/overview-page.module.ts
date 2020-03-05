@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { BaPageGuard } from '../../shared/services/page-guard';
+import { BaOverviewPage } from './overview-page';
+import { BaTile } from './components/tile';
 
-@Component({
-  selector: 'ba-error-page',
-  templateUrl: 'error-page.html',
-  styleUrls: ['error-page.scss'],
-  host: {
-    role: 'main',
+export const routes: Route[] = [
+  {
+    path: '',
+    component: BaOverviewPage,
+    canActivate: [BaPageGuard],
   },
+];
+
+@NgModule({
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [BaOverviewPage, BaTile],
 })
-export class BaErrorPage {}
+export class BaOverviewPageModule {}

@@ -36,8 +36,8 @@ import {
   take,
   switchMap,
 } from 'rxjs/operators';
-import { BaSearchService } from '../../shared/search.service';
-import { BaLocationService } from '../../shared/location.service';
+import { BaSearchService } from '../../shared/services/search.service';
+import { BaLocationService } from '../../shared/services/location.service';
 
 @Component({
   selector: 'ba-search-page',

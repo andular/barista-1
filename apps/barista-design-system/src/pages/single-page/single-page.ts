@@ -14,63 +14,119 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ViewContainerRef,
+  ComponentRef,
+  ComponentFactoryResolver,
+  Injector,
+  ChangeDetectorRef,
+} from '@angular/core';
 import {
   BaSinglePageContent,
   BaPageLayoutType,
 } from '@dynatrace/shared/barista-definitions';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { BaPage } from '../page-outlet';
-import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
+import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
+import { BaPageService } from '../../shared/services/page.service';
 
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
   styleUrls: ['single-page.scss'],
 })
-export class BaSinglePage implements BaPage, AfterViewInit {
-  @Input()
-  get contents(): BaSinglePageContent {
-    return this._contents;
-  }
-  set contents(value: BaSinglePageContent) {
-    this._contents = value;
-    if (this.contents && this.contents.layout != BaPageLayoutType.Icon) {
-      this._recentlyOrderedService.saveToLocalStorage(this.contents);
-    }
-  }
-  private _contents: BaSinglePageContent;
+export class BaSinglePage {
+  @ViewChild('content', { read: ViewContainerRef, static: true })
+  _container: ViewContainerRef;
 
-  constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}
+  // private _componentRef: ComponentRef<BaPageComponent>;
 
-  ngAfterViewInit(): void {
-    this._checkURL();
+  constructor(
+    private _componentFactoryResolver: ComponentFactoryResolver,
+    private _injector: Injector,
+    private _pageService: BaPageService,
+    private _changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
-    const allTables = Array.prototype.slice.call(
-      document.querySelectorAll('table'),
-    );
+  content = this._pageService._getCurrentPage();
 
-    /** Add data attributes to all tables, to apply responsive behavior of the tables. */
-    for (const table of allTables) {
-      applyTableDefinitionHeadingAttr(table);
-    }
-  }
+  // ngOnInit(): void {
+  //   const page = this._pageService._getCurrentPage()
+  //   if (page) {
+  //     this._render(page);
+  //   };
+  // }
 
-  /** @internal Whether to display the table of contents on the page. */
-  _showTOC(): boolean {
-    return this.contents && this.contents.toc !== false;
-  }
+  // ngOnDestroy(): void {
 
-  /** check if the url contains a hash and scroll to the matching headline */
-  private _checkURL(): void {
-    const hash = window.location.hash;
-    if (hash) {
-      const target = document.querySelector(hash || '');
-      if (target) {
-        requestAnimationFrame(() => {
-          target.scrollIntoView();
-        });
-      }
-    }
-  }
+  //   if (this._componentRef) {
+  //     this._componentRef.destroy();
+  //   }
+  // }
+
+  // private _render(page: BaSinglePageContent) {
+
+  //   console.log(this._container.element.nativeElement)
+  //   this._container.element.nativeElement.innerHTML = page.content;
+  //   // const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
+  //   //   BaPage
+  //   // );
+  //   // this._componentRef = componentFactory.create(this._injector);
+  //   // this._componentRef.instance.content = page.content;
+
+  //   // this._container.insert(this._componentRef.hostView);
+  //   // this._changeDetectorRef.markForCheck();
+  // // }
+  // }
+
+  // @Input()
+  // get contents(): BaSinglePageContent {
+  //   return this._contents;
+  // }
+  // set contents(value: BaSinglePageContent) {
+  //   this._contents = value;
+  //   if (this.contents && this.contents.layout != BaPageLayoutType.Icon) {
+  //     this._recentlyOrderedService.saveToLocalStorage(this.contents);
+  //   }
+  // }
+  // private _contents: BaSinglePageContent;
+
+  // constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}
+
+  // ngAfterViewInit(): void {
+  //   this._checkURL();
+
+  //   const allTables = Array.prototype.slice.call(
+  //     document.querySelectorAll('table'),
+  //   );
+
+  //   /** Add data attributes to all tables, to apply responsive behavior of the tables. */
+  //   for (const table of allTables) {
+  //     applyTableDefinitionHeadingAttr(table);
+  //   }
+  // }
+
+  // /** @internal Whether to display the table of contents on the page. */
+  // _showTOC(): boolean {
+  //   return this.contents && this.contents.toc !== false;
+  // }
+
+  // /** check if the url contains a hash and scroll to the matching headline */
+  // private _checkURL(): void {
+  //   const hash = window.location.hash;
+  //   if (hash) {
+  //     const target = document.querySelector(hash || '');
+  //     if (target) {
+  //       requestAnimationFrame(() => {
+  //         target.scrollIntoView();
+  //       });
+  //     }
+  //   }
+  // }
 }

@@ -31,7 +31,7 @@ import {
 import { BaPage } from '../page-outlet';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
+import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 
 @Component({
   selector: 'ba-icon-overview-page',

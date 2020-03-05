@@ -14,14 +14,4 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'ba-error-page',
-  templateUrl: 'error-page.html',
-  styleUrls: ['error-page.scss'],
-  host: {
-    role: 'main',
-  },
-})
-export class BaErrorPage {}
+export * from './smalltile';
