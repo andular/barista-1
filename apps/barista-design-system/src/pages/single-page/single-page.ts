@@ -14,40 +14,47 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
-  BaSinglePageContent,
   BaPageLayoutType,
+  BaSinglePageContent,
 } from '@dynatrace/shared/barista-definitions';
+import { BaPageService } from '../../shared/services/page.service';
+import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
-import { BaPage } from '../page-outlet';
-import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
 
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
   styleUrls: ['single-page.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
-export class BaSinglePage implements BaPage, AfterViewInit {
-  @Input()
-  get contents(): BaSinglePageContent {
-    return this._contents;
-  }
-  set contents(value: BaSinglePageContent) {
-    this._contents = value;
-    if (this.contents && this.contents.layout != BaPageLayoutType.Icon) {
-      this._recentlyOrderedService.saveToLocalStorage(this.contents);
+export class BaSinglePage implements OnInit, AfterViewInit {
+  content = this._pageService._getCurrentPage();
+
+  /** @internal Whether the page is the icon overview page */
+  _isIconOverview = this._isIconOverviewPage();
+
+  constructor(
+    private _router: Router,
+    private _pageService: BaPageService<BaSinglePageContent>,
+    private _recentlyOrderedService: BaRecentlyOrderedService,
+    @Inject(DOCUMENT) private _document: any,
+  ) {}
+
+  ngOnInit(): void {
+    if (this.content && this.content.layout !== BaPageLayoutType.Icon) {
+      this._recentlyOrderedService.savePage(this.content, this._router.url);
     }
   }
-  private _contents: BaSinglePageContent;
-
-  constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}
 
   ngAfterViewInit(): void {
-    this._checkURL();
-
     const allTables = Array.prototype.slice.call(
-      document.querySelectorAll('table'),
+      this._document.querySelectorAll('table'),
     );
 
     /** Add data attributes to all tables, to apply responsive behavior of the tables. */
@@ -56,21 +63,18 @@ export class BaSinglePage implements BaPage, AfterViewInit {
     }
   }
 
-  /** @internal Whether to display the table of contents on the page. */
-  _showTOC(): boolean {
-    return this.contents && this.contents.toc !== false;
-  }
-
-  /** check if the url contains a hash and scroll to the matching headline */
-  private _checkURL(): void {
-    const hash = window.location.hash;
-    if (hash) {
-      const target = document.querySelector(hash || '');
-      if (target) {
-        requestAnimationFrame(() => {
-          target.scrollIntoView();
-        });
-      }
-    }
+  /**
+   * @internal
+   * Checks whether the page is the icon overview page
+   * based on the current URL.
+   */
+  private _isIconOverviewPage(): boolean {
+    // we're on the icon overview page if the URL starts with
+    // "/resources/icons" and does not continue with another
+    // slash and letters (that would be a subpage)
+    return (
+      this._router.url.startsWith('/resources/icons') &&
+      !this._router.url.match(/^\/resources\/icons\/[A-Za-z]+/m)
+    );
   }
 }
