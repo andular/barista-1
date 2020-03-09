@@ -14,8 +14,25 @@
  * limitations under the License.
  */
 
-export const environment = {
-  deployUrl: '/',
-  internal: true,
-  dataHost: '/data',
-};
+import { NgModule } from '@angular/core';
+import {
+  ServerModule,
+  ServerTransferStateModule,
+} from '@angular/platform-server';
+import { AppModule } from './app.module';
+import { BaApp } from './app';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UniversalInterceptor } from '../shared/services/universal.interceptor';
+
+@NgModule({
+  imports: [AppModule, ServerModule, ServerTransferStateModule],
+  bootstrap: [BaApp],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UniversalInterceptor,
+      multi: true,
+    },
+  ],
+})
+export class AppServerModule {}

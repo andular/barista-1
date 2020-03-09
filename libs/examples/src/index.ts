@@ -115,7 +115,7 @@ import { DtExampleDrawerNested } from './drawer/drawer-nested-example/drawer-nes
 import { DtExampleDrawerOver } from './drawer/drawer-over-example/drawer-over-example';
 import {
   DtExampleCustomEmptyStateTable,
-  DtExampleCustomEmptyState,
+  DtExampleCustomEmptyState
 } from './empty-state/empty-state-custom-empty-state-table-example/empty-state-custom-empty-state-table-example';
 import { DtExampleEmptyStateDefault } from './empty-state/empty-state-default-example/empty-state-default-example';
 import { DtExampleEmptyStateInCard } from './empty-state/empty-state-in-card-example/empty-state-in-card-example';
@@ -648,7 +648,7 @@ export {
   DtExampleTreeTableAsyncShowMore,
   DtExampleTreeTableDefault,
   DtExampleTreeTableProblemIndicator,
-  DtExampleTreeTableSimple,
+  DtExampleTreeTableSimple
 };
 
 export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
@@ -657,18 +657,12 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleAlertError', DtExampleAlertError],
   ['DtExampleAlertInteractive', DtExampleAlertInteractive],
   ['DtExampleAlertWarning', DtExampleAlertWarning],
-  [
-    'DtExampleAutocompleteAttachDifferentElement',
-    DtExampleAutocompleteAttachDifferentElement,
-  ],
+  ['DtExampleAutocompleteAttachDifferentElement', DtExampleAutocompleteAttachDifferentElement],
   ['DtExampleAutocompleteControlValues', DtExampleAutocompleteControlValues],
   ['DtExampleAutocompleteCustomFilter', DtExampleAutocompleteCustomFilter],
   ['DtExampleAutocompleteDefault', DtExampleAutocompleteDefault],
   ['DtExampleAutocompleteGroups', DtExampleAutocompleteGroups],
-  [
-    'DtExampleAutocompleteHighlightFirstOption',
-    DtExampleAutocompleteHighlightFirstOption,
-  ],
+  ['DtExampleAutocompleteHighlightFirstOption', DtExampleAutocompleteHighlightFirstOption],
   ['DtExampleBarIndicatorAlignment', DtExampleBarIndicatorAlignment],
   ['DtExampleBarIndicatorColor', DtExampleBarIndicatorColor],
   ['DtExampleBarIndicatorDefault', DtExampleBarIndicatorDefault],
@@ -721,25 +715,13 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleCheckboxIndeterminate', DtExampleCheckboxIndeterminate],
   ['DtExampleCheckboxResponsive', DtExampleCheckboxResponsive],
   ['DtExampleConfirmationDialogDefault', DtExampleConfirmationDialogDefault],
-  [
-    'DtExampleConfirmationDialogShowBackdrop',
-    DtExampleConfirmationDialogShowBackdrop,
-  ],
+  ['DtExampleConfirmationDialogShowBackdrop', DtExampleConfirmationDialogShowBackdrop],
   ['DtExampleConsumptionDefault', DtExampleConsumptionDefault],
   ['DtExampleConsumptionError', DtExampleConsumptionError],
   ['DtExampleConsumptionWarning', DtExampleConsumptionWarning],
-  [
-    'DtExampleContainerBreakpointObserverDefault',
-    DtExampleContainerBreakpointObserverDefault,
-  ],
-  [
-    'DtExampleContainerBreakpointObserverIfElse',
-    DtExampleContainerBreakpointObserverIfElse,
-  ],
-  [
-    'DtExampleContainerBreakpointObserverIf',
-    DtExampleContainerBreakpointObserverIf,
-  ],
+  ['DtExampleContainerBreakpointObserverDefault', DtExampleContainerBreakpointObserverDefault],
+  ['DtExampleContainerBreakpointObserverIfElse', DtExampleContainerBreakpointObserverIfElse],
+  ['DtExampleContainerBreakpointObserverIf', DtExampleContainerBreakpointObserverIf],
   ['DtExampleContextDialogActions', DtExampleContextDialogActions],
   ['DtExampleContextDialogCustomIcon', DtExampleContextDialogCustomIcon],
   ['DtExampleContextDialogDark', DtExampleContextDialogDark],
@@ -753,10 +735,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleCopyToClipboardDark', DtExampleCopyToClipboardDark],
   ['DtExampleCopyToClipboardDefault', DtExampleCopyToClipboardDefault],
   ['DtExampleCopyToClipboardError', DtExampleCopyToClipboardError],
-  [
-    'DtExampleCopyToClipboardSecondaryButton',
-    DtExampleCopyToClipboardSecondaryButton,
-  ],
+  ['DtExampleCopyToClipboardSecondaryButton', DtExampleCopyToClipboardSecondaryButton],
   ['DtExampleCopyToClipboardTextarea', DtExampleCopyToClipboardTextarea],
   ['DtExampleCtaCardClosable', DtExampleCtaCardClosable],
   ['DtExampleCtaCardDefault', DtExampleCtaCardDefault],
@@ -769,10 +748,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleEmptyStateDefault', DtExampleEmptyStateDefault],
   ['DtExampleEmptyStateInCard', DtExampleEmptyStateInCard],
   ['DtExampleEmptyStateMultipleItems', DtExampleEmptyStateMultipleItems],
-  [
-    'DtExampleEmptyStateMultipleItemsInCard',
-    DtExampleEmptyStateMultipleItemsInCard,
-  ],
+  ['DtExampleEmptyStateMultipleItemsInCard', DtExampleEmptyStateMultipleItemsInCard],
   ['DtExampleEventChartComplexSelection', DtExampleEventChartComplexSelection],
   ['DtExampleEventChartCustomColor', DtExampleEventChartCustomColor],
   ['DtExampleEventChartDefault', DtExampleEventChartDefault],
@@ -783,21 +759,12 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleEventChartSessionReplay', DtExampleEventChartSessionReplay],
   ['DtExampleExpandablePanelDefault', DtExampleExpandablePanelDefault],
   ['DtExampleExpandablePanelDisabled', DtExampleExpandablePanelDisabled],
-  [
-    'DtExampleExpandablePanelDynamicTrigger',
-    DtExampleExpandablePanelDynamicTrigger,
-  ],
-  [
-    'DtExampleExpandablePanelProgrammatic',
-    DtExampleExpandablePanelProgrammatic,
-  ],
+  ['DtExampleExpandablePanelDynamicTrigger', DtExampleExpandablePanelDynamicTrigger],
+  ['DtExampleExpandablePanelProgrammatic', DtExampleExpandablePanelProgrammatic],
   ['DtExampleExpandableSectionDark', DtExampleExpandableSectionDark],
   ['DtExampleExpandableSectionDefault', DtExampleExpandableSectionDefault],
   ['DtExampleExpandableSectionDisabled', DtExampleExpandableSectionDisabled],
-  [
-    'DtExampleExpandableSectionInteractive',
-    DtExampleExpandableSectionInteractive,
-  ],
+  ['DtExampleExpandableSectionInteractive', DtExampleExpandableSectionInteractive],
   ['DtExampleExpandableSectionOpen', DtExampleExpandableSectionOpen],
   ['DtExampleExpandableTextDefault', DtExampleExpandableTextDefault],
   ['DtExampleFilterFieldAsync', DtExampleFilterFieldAsync],
@@ -805,17 +772,11 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFilterFieldDefault', DtExampleFilterFieldDefault],
   ['DtExampleFilterFieldDisabled', DtExampleFilterFieldDisabled],
   ['DtExampleFilterFieldDistinct', DtExampleFilterFieldDistinct],
-  [
-    'DtExampleFilterFieldProgrammaticFilters',
-    DtExampleFilterFieldProgrammaticFilters,
-  ],
+  ['DtExampleFilterFieldProgrammaticFilters', DtExampleFilterFieldProgrammaticFilters],
   ['DtExampleFilterFieldReadOnlyTags', DtExampleFilterFieldReadOnlyTags],
   ['DtExampleFilterFieldUnique', DtExampleFilterFieldUnique],
   ['DtExampleFormFieldDefault', DtExampleFormFieldDefault],
-  [
-    'DtExampleFormFieldErrorCustomValidator',
-    DtExampleFormFieldErrorCustomValidator,
-  ],
+  ['DtExampleFormFieldErrorCustomValidator', DtExampleFormFieldErrorCustomValidator],
   ['DtExampleFormFieldError', DtExampleFormFieldError],
   ['DtExampleFormFieldHint', DtExampleFormFieldHint],
   ['DtExampleFormFieldPrefixSuffix', DtExampleFormFieldPrefixSuffix],
@@ -863,10 +824,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleMenuWithinContextDialog', DtExampleMenuWithinContextDialog],
   ['DtExampleMenuWithinDrawer', DtExampleMenuWithinDrawer],
   ['DtExampleMicroChartColumns', DtExampleMicroChartColumns],
-  [
-    'DtExampleMicroChartColumnsInterpolated',
-    DtExampleMicroChartColumnsInterpolated,
-  ],
+  ['DtExampleMicroChartColumnsInterpolated', DtExampleMicroChartColumnsInterpolated],
   ['DtExampleMicroChartDefault', DtExampleMicroChartDefault],
   ['DtExampleMicroChartInterpolated', DtExampleMicroChartInterpolated],
   ['DtExampleMicroChartStream', DtExampleMicroChartStream],
@@ -883,14 +841,8 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleProgressBarDefault', DtExampleProgressBarDefault],
   ['DtExampleProgressBarRightAligned', DtExampleProgressBarRightAligned],
   ['DtExampleProgressBarWithColor', DtExampleProgressBarWithColor],
-  [
-    'DtExampleProgressBarWithCountAndDescription',
-    DtExampleProgressBarWithCountAndDescription,
-  ],
-  [
-    'DtExampleProgressBarWithCountAndDescriptionIndicator',
-    DtExampleProgressBarWithCountAndDescriptionIndicator,
-  ],
+  ['DtExampleProgressBarWithCountAndDescription', DtExampleProgressBarWithCountAndDescription],
+  ['DtExampleProgressBarWithCountAndDescriptionIndicator', DtExampleProgressBarWithCountAndDescriptionIndicator],
   ['DtExampleProgressBarWithCount', DtExampleProgressBarWithCount],
   ['DtExampleProgressBarWithDescription', DtExampleProgressBarWithDescription],
   ['DtExampleProgressCircleChange', DtExampleProgressCircleChange],
@@ -943,10 +895,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTableEmptyState', DtExampleTableEmptyState],
   ['DtExampleTableExpandableRows', DtExampleTableExpandableRows],
   ['DtExampleTableFavoriteColumn', DtExampleTableFavoriteColumn],
-  [
-    'DtExampleTableFavoriteColumnNoHeader',
-    DtExampleTableFavoriteColumnNoHeader,
-  ],
+  ['DtExampleTableFavoriteColumnNoHeader', DtExampleTableFavoriteColumnNoHeader],
   ['DtExampleTableInteractiveRows', DtExampleTableInteractiveRows],
   ['DtExampleTableLoading', DtExampleTableLoading],
   ['DtExampleTableObservable', DtExampleTableObservable],
@@ -978,15 +927,12 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleToastDefault', DtExampleToastDefault],
   ['DtExampleToastDynamicMsg', DtExampleToastDynamicMsg],
   ['DtExampleToggleButtonGroupDefault', DtExampleToggleButtonGroupDefault],
-  [
-    'DtExampleToggleButtonGroupDynamicItems',
-    DtExampleToggleButtonGroupDynamicItems,
-  ],
+  ['DtExampleToggleButtonGroupDynamicItems', DtExampleToggleButtonGroupDynamicItems],
   ['DtExampleToggleButtonGroupShowMore', DtExampleToggleButtonGroupShowMore],
   ['DtExampleTopBarNavigationDefault', DtExampleTopBarNavigationDefault],
   ['DtExampleTopBarNavigationDrawer', DtExampleTopBarNavigationDrawer],
   ['DtExampleTreeTableAsyncShowMore', DtExampleTreeTableAsyncShowMore],
   ['DtExampleTreeTableDefault', DtExampleTreeTableDefault],
   ['DtExampleTreeTableProblemIndicator', DtExampleTreeTableProblemIndicator],
-  ['DtExampleTreeTableSimple', DtExampleTreeTableSimple],
+  ['DtExampleTreeTableSimple', DtExampleTreeTableSimple]
 ]);

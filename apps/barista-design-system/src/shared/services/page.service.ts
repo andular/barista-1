@@ -26,8 +26,6 @@ import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { DOCUMENT } from '@angular/common';
 
-const CONTENT_PATH_PREFIX = 'data/';
-
 const ERROR_PAGE_404: BaErrorPageContent = {
   title: 'Error 404',
   layout: BaPageLayoutType.Error,
@@ -42,9 +40,7 @@ const ERROR_PAGE: BaErrorPageContent = {
     "Sorry, an error has occurred. Don't worry, we're working to fix the problem!",
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BaPageService<T = any> {
   /**
    * @internal
@@ -91,7 +87,7 @@ export class BaPageService<T = any> {
    * @param id - page id (path).
    */
   private _fetchPage(id: string): Observable<T> {
-    const requestPath = `${environment.dataHost}${CONTENT_PATH_PREFIX}${id}.json`;
+    const requestPath = `${environment.dataHost}/${id}.json`;
 
     return this._http
       .get<T>(requestPath, { responseType: 'json' })

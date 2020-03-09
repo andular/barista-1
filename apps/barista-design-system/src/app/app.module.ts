@@ -17,7 +17,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
@@ -31,11 +34,14 @@ import { BaScrollToTop } from '../shared/components/scroll-to-top';
 import { BaSidenav } from '../shared/components/sidenav';
 import { BaApp } from './app';
 import { BaRoutingModule } from './app.routing.module';
+import { BaPageGuard } from '../shared/services/page-guard';
+import { BaPageService } from '../shared/services/page.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'barista-design-system' }),
+    BrowserTransferStateModule,
     HttpClientModule,
     BrowserAnimationsModule,
     DtThemingModule,
@@ -48,6 +54,7 @@ import { BaRoutingModule } from './app.routing.module';
     DtTagModule,
   ],
   declarations: [BaApp, BaScrollToTop, BaNav, BaFooter, BaSidenav],
+  providers: [BaPageService, BaPageGuard],
   bootstrap: [BaApp],
 })
 export class AppModule {}

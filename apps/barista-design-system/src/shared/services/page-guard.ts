@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { BaPageLayoutType } from '@dynatrace/shared/barista-definitions';
-import { Observable } from 'rxjs';
-import { mapTo, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, mapTo } from 'rxjs/operators';
 import { BaPageService, getUrlPathName } from './page.service';
-import { DOCUMENT } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BaPageGuard implements CanActivate {
   constructor(
     private _pageService: BaPageService,
@@ -43,10 +40,10 @@ export class BaPageGuard implements CanActivate {
   ): Observable<boolean> {
     const url = getUrlPathName(this._document, state.url);
     return this._pageService._getPage(url).pipe(
-      tap(data => {
-        if (data.layout === BaPageLayoutType.Error) {
-          this._router.navigate(['not-found']);
-        }
+      catchError(error => {
+        console.log(error.toString());
+        this._router.navigate(['not-found']);
+        return of(false);
       }),
       mapTo(true),
     );
