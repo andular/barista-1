@@ -15,7 +15,7 @@
  */
 
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   BaPageLayoutType,
@@ -47,7 +47,7 @@ export class BaSinglePage implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.content && this.content.layout !== BaPageLayoutType.Icon) {
+    if (this.content && this.content?.layout !== BaPageLayoutType.Icon) {
       this._recentlyOrderedService.savePage(this.content, this._router.url);
     }
   }
