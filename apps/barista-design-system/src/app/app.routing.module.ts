@@ -42,7 +42,7 @@ export const baristaRoutes: Route[] = [
   //       module => module.ContentPageModule
   //     )
   // },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: '/components/button', pathMatch: 'full' },
   { path: 'not-found', component: BaErrorPage },
   {
     path: 'home',
@@ -58,7 +58,6 @@ export const baristaRoutes: Route[] = [
         module => module.BaSinglePageModule,
       ),
   },
-  // im ** fall (single-page) muss der pageguard entscheiden, ob a page oder a error gerendert wird (redirect to not-found)
 ];
 
 @NgModule({

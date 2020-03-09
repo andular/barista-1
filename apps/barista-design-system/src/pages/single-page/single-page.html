@@ -1,4 +1,4 @@
-<div class="ba-page-grid">
+<div class="ba-page-grid" *ngIf="content">
   <!-- <nav
     ba-sidenav
     *ngIf="contents.sidenav"
@@ -17,7 +17,7 @@
 -->
   <main class="ba-page-main" id="main" role="main">
     <article class="ba-single-page-content">
-      <div [innerHTML]="content.content"></div>
+      <ba-page-content [data]="content.content"></ba-page-content>
     </article>
   </main>
   <!--

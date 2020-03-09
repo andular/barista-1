@@ -16,19 +16,20 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtSwitchModule } from '@dynatrace/barista-components/switch';
-import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtButtonModule } from '@dynatrace/barista-components/button';
-import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
-import { BaLiveExample } from './live-example/live-example';
-import { BaLazyIcon } from './lazy-icon/lazy-icon';
-import { BaHeadlineLink } from './headline-link/headline-link';
-import { BaColorGrid } from './color-grid/color-grid';
-import { BaLayoutGrid } from './layout-grid/layout-grid';
-import { BaColor } from './color-component/color';
-import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
+// import { DtSwitchModule } from '@dynatrace/barista-components/switch';
+// import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+// import { DtIconModule } from '@dynatrace/barista-components/icon';
+// import { DtButtonModule } from '@dynatrace/barista-components/button';
+// import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
+// import { BaLiveExample } from './live-example/live-example';
+// import { BaLazyIcon } from './lazy-icon/lazy-icon';
+// import { BaHeadlineLink } from './headline-link/headline-link';
+// import { BaColorGrid } from './color-grid/color-grid';
+// import { BaLayoutGrid } from './layout-grid/layout-grid';
+// import { BaColor } from './color-component/color';
+// import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
 
+import { BaLiveExample } from './example';
 /**
  * The order of the following components is relevant in case they are nested.
  * Inner components must be instantiated first. This is why the grid-item
@@ -36,23 +37,23 @@ import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
  */
 // tslint:disable-next-line: no-any
 export const BA_CONTENT_COMPONENTS: any[] = [
-  BaIconColorWheel,
+  // BaIconColorWheel,
   BaLiveExample,
-  BaLazyIcon,
-  BaHeadlineLink,
-  BaColor,
-  BaLayoutGridItem,
-  BaLayoutGrid,
-  BaColorGrid,
+  // BaLazyIcon,
+  // BaHeadlineLink,
+  // BaColor,
+  // BaLayoutGridItem,
+  // BaLayoutGrid,
+  // BaColorGrid,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    DtSwitchModule,
-    DtOverlayModule,
-    DtIconModule,
-    DtButtonModule,
+    // DtSwitchModule,
+    // DtOverlayModule,
+    // DtIconModule,
+    // DtButtonModule,
   ],
   exports: [...BA_CONTENT_COMPONENTS],
   declarations: [...BA_CONTENT_COMPONENTS],

@@ -26,8 +26,8 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-import { BA_CONTENT_COMPONENTS } from '../components/index';
-import { createComponent } from '../utils/create-component';
+import { BA_CONTENT_COMPONENTS } from '../../components';
+import { createComponent } from '../../utils/create-component';
 
 @Component({
   selector: 'ba-page-content',
@@ -40,8 +40,6 @@ export class BaPageContent implements OnDestroy {
   }
   set data(value: string) {
     this._data = value;
-
-    // tslint:disable-next-line dt-ban-inner-html
     this._elementRef.nativeElement.innerHTML = value;
     this._elementRef.nativeElement.setAttribute('id', 'all-content');
     this._createContentComponents();

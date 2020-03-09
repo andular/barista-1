@@ -18,7 +18,7 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { Title } from '@angular/platform-browser';
-// import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 // import { map, switchMap } from 'rxjs/operators';
 // import { BaLocationService } from './shared/services/location.service';
 // import { BaPageService } from './shared/services/page.service';
@@ -67,7 +67,8 @@ export class BaApp {
   //         : createBreadcrumbItems(path);
   //     }),
   //   );
-  //   /** @internal Gets the page theme based on the current location. */
+  /** @internal Gets the page theme based on the current location. */
+  _pageTheme$ = of('royalblue');
   //   _pageTheme$ = this._locationService.currentPath$.pipe(
   //     map((path: string) => {
   //       let pageTheme = DEFAULT_PAGE_THEME;
