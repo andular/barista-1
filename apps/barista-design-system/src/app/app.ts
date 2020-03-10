@@ -94,16 +94,16 @@ export class BaApp {
   }
 }
 
-  // function createBreadcrumbItems(
-  //   path: string,
-  // ): { title: string; href: string }[] {
-  //   let previousPath = '';
-  //   return path.split('/').map((part: string) => {
-  //     previousPath = `${previousPath}/${part}`;
-  //     part = part
-  //       .split('-')
-  //       .join(' ')
-  //       .replace(part.charAt(0), part.charAt(0).toUpperCase());
-  //     return { title: part, href: previousPath };
-  //   });
-  // }
+// function createBreadcrumbItems(
+//   path: string,
+// ): { title: string; href: string }[] {
+//   let previousPath = '';
+//   return path.split('/').map((part: string) => {
+//     previousPath = `${previousPath}/${part}`;
+//     part = part
+//       .split('-')
+//       .join(' ')
+//       .replace(part.charAt(0), part.charAt(0).toUpperCase());
+//     return { title: part, href: previousPath };
+//   });
+// }

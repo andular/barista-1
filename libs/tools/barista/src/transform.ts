@@ -18,19 +18,31 @@ import {
   BaAllExamplesMetadata,
   BaSinglePageContent,
 } from '@dynatrace/shared/barista-definitions';
+import { isPublicBuild } from '@dynatrace/tools/shared';
+import { environment } from '@environments/barista-environment';
+import {
+  htmlRender,
+  init,
+  process,
+  registerLanguages,
+  SCSS,
+  TypeScript,
+  XML,
+} from 'highlight-ts';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
-import { environment } from '@environments/barista-environment';
-import { isPublicBuild } from '@dynatrace/tools/shared';
 import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
+import {
+  BaPageTransformer,
+  BaStrapiContentType,
+  BaStrapiSnippet,
+} from './types';
 import { fetchContentList } from './utils/fetch-strapi-content';
 import { runWithCheerio } from './utils/run-with-cheerio';
 
-import {
-  BaStrapiContentType,
-  BaStrapiSnippet,
-  BaPageTransformer,
-} from './types';
+registerLanguages(TypeScript, XML, SCSS);
+/** Highlighter for highlight-ts syntax highlighting. */
+const highlighter = init(htmlRender);
 
 const markdown = new markdownIt({
   html: true,
@@ -241,19 +253,56 @@ export function exampleInlineSourcesTransformerFactory(
         if (!demoMetadata) {
           throw new Error(`Example with name ${name} does not exist`);
         }
+        if (demoMetadata.directory) {
+          $(element).attr('directory', demoMetadata.directory);
+        }
         if (demoMetadata.templateSource) {
-          $(element).attr('templateSource', demoMetadata.templateSource);
+          $(element).attr(
+            'templateSource',
+            highlightCode(demoMetadata.templateSource, 'xml'),
+          );
         }
         if (demoMetadata.classSource) {
-          $(element).attr('classSource', demoMetadata.classSource);
+          $(element).attr(
+            'classSource',
+            highlightCode(demoMetadata.classSource, 'ts'),
+          );
         }
         if (demoMetadata.stylesSource) {
-          $(element).attr('stylesSource', demoMetadata.stylesSource);
+          $(element).attr(
+            'stylesSource',
+            highlightCode(demoMetadata.stylesSource, 'scss'),
+          );
         }
       });
     });
     return source;
   };
+}
+
+/**
+ * Uses highlight-ts to add syntax coloring for the provided code example.
+ * Transforms given code by replacing empty lines,
+ * and wrapping each line in a span element.
+ */
+function highlightCode(code: string, type: string): string {
+  const transformedCode = code
+    .replace(/^(\s*\r?\n)*/g, '') // Remove empty lines at the start of the source
+    .replace(/(\r?\n\s*)*$/g, ''); // Remove empty lines at the end of the source
+
+  // Add syntax highlighting using highlight-ts
+  const highlighted = process(highlighter, transformedCode, type).value;
+
+  return wrapCodeLines(highlighted, 'ba-live-example-code-line');
+}
+
+/** Wraps each line of the given code string in a span tag. */
+export function wrapCodeLines(code: string, className: string): string {
+  const wrappedLines = code.replace(
+    /\n+/g,
+    `</span>\n<span class="${className}">`,
+  );
+  return `<span class="${className}">${wrappedLines}</span>`;
 }
 
 /**

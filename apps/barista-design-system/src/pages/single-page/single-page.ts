@@ -27,5 +27,4 @@ export class BaSinglePage {
   content = this._pageService._getCurrentPage() as BaSinglePageContent;
 
   constructor(private _pageService: BaPageService) {}
-
 }

@@ -20,6 +20,7 @@ import {
   extractH1ToTitleTransformer,
   internalLinksTransformerFactory,
   headingIdTransformer,
+  wrapCodeLines,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -140,5 +141,17 @@ describe('Barista transformers', () => {
         '<h2 id="h1-definitions">1. Definitions.</h2>',
       );
     });
+  });
+});
+
+describe('Live Examples', () => {
+  it('wrapCodeLines', () => {
+    const code = `const name = 'Hermann';
+function hello() {
+  console.log('Hello' + name + '!');
+}`;
+
+    const wrappedCode = wrapCodeLines(code, 'ba-code-line');
+    expect(wrappedCode).toMatchSnapshot();
   });
 });

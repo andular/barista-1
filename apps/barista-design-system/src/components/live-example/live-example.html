@@ -69,13 +69,13 @@
   <pre
     class="ba-live-example-template-source"
     *ngIf="templateSource && _activeTab === 'html'"
-  ><code [innerHTML]="_enhancedTemplateSource"></code></pre>
+  ><code [innerHTML]="templateSource"></code></pre>
   <pre
     class="ba-live-example-class-source"
     *ngIf="classSource && _activeTab === 'ts'"
-  ><code [innerHTML]="_enhancedClassSource"></code></pre>
+  ><code [innerHTML]="classSource"></code></pre>
   <pre
     class="ba-live-example-class-source"
-    *ngIf="classSource && _activeTab === 'scss'"
-  ><code [innerHTML]="_enhancedStylesSource"></code></pre>
+    *ngIf="stylesSource && _activeTab === 'scss'"
+  ><code [innerHTML]="stylesSource"></code></pre>
 </div>

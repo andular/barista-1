@@ -14,39 +14,20 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  Input,
-  ComponentFactoryResolver,
-  Injector,
-  ViewChild,
-  ElementRef,
-  ViewContainerRef,
-  ComponentRef,
-  OnDestroy,
-  Compiler,
-  Type,
-  NgModule,
-  OnInit,
-} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { timer, Subscription, Observable, from } from 'rxjs';
 import {
-  Highlighter,
-  registerLanguages,
-  htmlRender,
-  init,
-  process,
-  TypeScript,
-  XML,
-  SCSS,
-} from 'highlight-ts';
-
-import { wrapCodeLines } from '../../utils/wrap-code-lines';
+  Compiler,
+  Component,
+  Input,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  Type,
+} from '@angular/core';
+import { from, Observable, Subscription, timer } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
-import { map, filter, switchMap, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 type BaSourceType = 'html' | 'ts' | 'scss';
 
@@ -63,6 +44,14 @@ type BaSourceType = 'html' | 'ts' | 'scss';
 export class BaLiveExample implements OnInit, OnDestroy {
   /** The name of the example (class name) that will be instantiated. */
   @Input() name: string;
+
+  /**
+   * The directory inside the libs/examples/src/* where
+   * the examples are located.
+   * Is needed to know from which directory the example should be loaded
+   * via the es6 import statement in the `_initExample` method
+   */
+  @Input() directory: string;
 
   /** Whether the example should run in the dark theme. */
   @Input()
@@ -104,7 +93,6 @@ export class BaLiveExample implements OnInit, OnDestroy {
     if (!this._activeTabChanged) {
       this._activeTab = 'html';
     }
-    this._enhancedTemplateSource = this._enhanceCode(value, 'html');
   }
   private _templateSource: string;
 
@@ -118,7 +106,6 @@ export class BaLiveExample implements OnInit, OnDestroy {
     if (!this._activeTabChanged && !this._activeTab) {
       this._activeTab = 'ts';
     }
-    this._enhancedClassSource = this._enhanceCode(value, 'ts');
   }
   private _classSource: string;
 
@@ -132,10 +119,8 @@ export class BaLiveExample implements OnInit, OnDestroy {
     if (!this._activeTabChanged && !this._activeTab) {
       this._activeTab = 'scss';
     }
-    this._enhancedStylesSource = this._enhanceCode(value, 'scss');
   }
   private _stylesSource: string;
-
 
   /**
    * @internal
@@ -155,32 +140,16 @@ export class BaLiveExample implements OnInit, OnDestroy {
   /** @internal Whether the source code has been copied. */
   _copied = false;
 
-  /** @internal Enhanced template source with line wrappers and code highlighting. */
-  _enhancedTemplateSource: string;
-
-  /** @internal Enhanced class source with line wrappers and code highlighting. */
-  _enhancedClassSource: string;
-
-  /** @internal Enhanced styles source with line wrappers and code highlighting. */
-  _enhancedStylesSource: string;
-
   private _timerSubscription = Subscription.EMPTY;
 
   /** Whether the user has changed the active tab. */
   private _activeTabChanged = false;
 
-  /** Highlighter for highlight-ts syntax highlighting. */
-  private _highlighter: Highlighter<string>;
-
   constructor(
     private _compiler: Compiler,
-    private _route: Router,
     private _platform: Platform,
     private _ctcService: BaCopyToClipboardService,
-  ) {
-    registerLanguages(TypeScript, XML, SCSS);
-    this._highlighter = init(htmlRender);
-  }
+  ) {}
 
   ngOnInit(): void {
     this._initExample();
@@ -229,9 +198,9 @@ export class BaLiveExample implements OnInit, OnDestroy {
   }
 
   private _initExample(): void {
-    const component = this._route.url.split('/').pop();
-
-    this.example$ = from(import(`../../../../../libs/examples/src/${component}/index.ts`)).pipe(
+    this.example$ = from(
+      import(`../../../../../libs/examples/src/${this.directory}/index.ts`),
+    ).pipe(
       map(es6Module => getNgModuleFromEs6Module(es6Module)),
       filter(Boolean),
       switchMap((moduleType: Type<NgModule>) =>
@@ -243,7 +212,7 @@ export class BaLiveExample implements OnInit, OnDestroy {
         )?.componentType;
       }),
     );
-}
+  }
 
   /**
    * Updates value of behavior subject after
@@ -254,25 +223,6 @@ export class BaLiveExample implements OnInit, OnDestroy {
     this._timerSubscription = timer(1000).subscribe(
       () => (this._copied = false),
     );
-  }
-
-  /**
-   * Transforms given code by replacing empty lines,
-   * and wrapping each line in a span element.
-   */
-  private _enhanceCode(code: string, type: BaSourceType): string {
-    // Remove empty lines at the start of the source
-    let transformedCode = code.replace(/^(\s*\r?\n)*/g, '');
-    // Remove empty lines at the end of the source
-    transformedCode = transformedCode.replace(/(\r?\n\s*)*$/g, '');
-
-    // highlight-ts needs 'xml' as type instead of 'html'
-    const highlightType = type === 'html' ? 'xml' : type;
-    // Add syntax highlighting using highlight-ts
-    transformedCode = process(this._highlighter, transformedCode, highlightType)
-      .value;
-
-    return wrapCodeLines(transformedCode, 'ba-live-example-code-line');
   }
 }
 
