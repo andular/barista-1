@@ -78,8 +78,7 @@ export class BaPageService {
   }
 
   _getCurrentPage(): BaSinglePageContent | BaCategoryNavigationContent | null {
-    const url = this._router.url.substr(1);
-    const page = this._cache.get(url);
+    const page = this._cache.get(getPageKeyFromUrl(this._router.url));
 
     if (!page) {
       this._router.navigate(['not-found']);
@@ -95,11 +94,12 @@ export class BaPageService {
    */
   _getPage(url: string): Observable<BaSinglePageContent> {
     console.log('getting page:', url);
+    const key = getPageKeyFromUrl(url);
 
-    if (!this._cache.has(url)) {
-      return this._fetchPage(url);
+    if (!this._cache.has(key)) {
+      return this._fetchPage(key);
     }
-    return of(this._cache.get(url)!);
+    return of(this._cache.get(key)!);
   }
 
   /**
@@ -118,4 +118,11 @@ export class BaPageService {
         tap(data => this._cache.set(id, data)),
       );
   }
+}
+
+/** Provides the cache key for a url */
+function getPageKeyFromUrl(url: string): string {
+  // remove the leading slash if there is one
+  const key = url.replace(/^\//, '');
+  return !key.length ? 'index' : key;
 }
