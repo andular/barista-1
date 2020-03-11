@@ -20,6 +20,7 @@ import { Route, RouterModule } from '@angular/router';
 import { BaPageGuard } from '../../shared/services/page-guard';
 import { BaSmallTile } from './components/smalltile';
 import { BaIndexPage } from './index-page';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 export const routes: Route[] = [
   {
@@ -30,7 +31,7 @@ export const routes: Route[] = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
   declarations: [BaIndexPage, BaSmallTile],
 })
 export class BaIndexPageModule {}
