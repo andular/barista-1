@@ -24,9 +24,12 @@ import { BaPageLink } from '@dynatrace/shared/barista-definitions';
   selector: 'ba-index-page',
   templateUrl: './index-page.html',
   styleUrls: ['./index-page.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
 export class BaIndexPage {
-  contents = this._pageService._getCurrentPage();
+  content = this._pageService._getCurrentPage();
 
   constructor(private _pageService: BaPageService) {}
   /** @internal whether the internal content should be displayed */

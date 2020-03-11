@@ -1,4 +1,4 @@
-<div class="ba-page-content">
+<div class="ba-page-content" *ngIf="content">
   <h1>{{ content.title }}</h1>
   <p *ngIf="content.description" class="ba-overview-page-description">
     {{ content.description }}
@@ -32,18 +32,20 @@
   </div>
 </div>
 
-<div *ngFor="let section of content.sections" class="ba-page-section">
-  <div class="ba-page-content">
-    <h2 *ngIf="section.title">{{ section.title }}</h2>
-    <nav>
-      <ul
-        class="ba-tilegrid"
-        [ngClass]="{ 'ba-tilegrid-listview': _listViewActive }"
-      >
-        <li *ngFor="let item of section.items">
-          <a ba-tile [data]="item" [listView]="_listViewActive"></a>
-        </li>
-      </ul>
-    </nav>
+<ng-container *ngIf="content && content.sections">
+  <div *ngFor="let section of content.sections" class="ba-page-section">
+    <div class="ba-page-content">
+      <h2 *ngIf="section.title">{{ section.title }}</h2>
+      <nav>
+        <ul
+          class="ba-tilegrid"
+          [ngClass]="{ 'ba-tilegrid-listview': _listViewActive }"
+        >
+          <li *ngFor="let item of section.items">
+            <a ba-tile [data]="item" [listView]="_listViewActive"></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-</div>
+</ng-container>

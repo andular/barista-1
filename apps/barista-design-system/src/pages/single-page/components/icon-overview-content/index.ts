@@ -14,20 +14,4 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-import { BaPageService } from '../../shared/services/page.service';
-
-@Component({
-  selector: 'ba-error-page',
-  templateUrl: 'error-page.html',
-  styleUrls: ['error-page.scss'],
-  host: {
-    role: 'main',
-    class: 'ba-page',
-  },
-})
-export class BaErrorPage {
-  content = this._pageService._getCurrentPage();
-
-  constructor(private _pageService: BaPageService) {}
-}
+export * from './icon-overview-content'

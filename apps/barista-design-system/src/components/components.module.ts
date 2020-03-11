@@ -23,7 +23,6 @@ import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
 import { BaLiveExample } from './live-example/live-example';
 import { BaCopyToClipboardService } from '../shared/services/copy-to-clipboard.service';
-import { BaLazyIcon } from './lazy-icon/lazy-icon';
 import { BaHeadlineLink } from './headline-link/headline-link';
 import { BaColorGrid } from './color-grid/color-grid';
 import { BaLayoutGrid } from './layout-grid/layout-grid';
@@ -40,7 +39,6 @@ import { RouterModule } from '@angular/router';
 export const BA_CONTENT_COMPONENTS: any[] = [
   BaIconColorWheel,
   BaLiveExample,
-  BaLazyIcon,
   BaHeadlineLink,
   BaColor,
   BaLayoutGridItem,

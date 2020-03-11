@@ -22,13 +22,6 @@ import { NgModule } from '@angular/core';
 
 export const baristaRoutes: Route[] = [
   {
-    path: '',
-    loadChildren: () =>
-      import('../pages/index-page/index-page.module').then(
-        module => module.BaIndexPageModule,
-      ),
-  },
-  {
     path: 'brand',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
@@ -61,6 +54,13 @@ export const baristaRoutes: Route[] = [
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
         module => module.BaOverviewPageModule,
+      ),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('../pages/index-page/index-page.module').then(
+        module => module.BaIndexPageModule,
       ),
   },
   // {

@@ -1,21 +1,22 @@
-<div class="ba-page-grid">
-  <ba-page-header
-    *ngIf="contents"
-    [title]="contents.title"
-    [description]="contents.description"
-  ></ba-page-header>
+<div class="ba-page-grid" >
+  <ng-container *ngIf="content">
+    <ba-page-header
+      [title]="content.title"
+      [description]="content.description"
+    ></ba-page-header>
 
-  <nav
-    ba-sidenav
-    *ngIf="contents.sidenav"
-    [sidenavData]="contents.sidenav"
-  ></nav>
+    <nav
+      ba-sidenav
+      *ngIf="content.sidenav"
+      [sidenavData]="content.sidenav"
+    ></nav>
+  </ng-container>
 
   <main class="ba-page-main" id="main" role="main">
     <article class="ba-single-page-content">
       <p>
         All icons can be used in your Angular project. Have a look at the
-        <a routerLink="/components/icon">icon component page</a> in Barista's
+        <a href="/components/icon">icon component page</a> in Barista's
         components section for more information.
       </p>
 

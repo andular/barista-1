@@ -19,7 +19,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { Title } from '@angular/platform-browser';
 import { Subscription, Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, tap } from 'rxjs/operators';
 // import { map, switchMap } from 'rxjs/operators';
 // import { BaLocationService } from './shared/services/location.service';
 // import { BaPageService } from './shared/services/page.service';

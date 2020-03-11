@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { environment } from '../environments/environment';
 import { BaFooter } from '../shared/components/footer';
 import { BaNav } from '../shared/components/nav';
 import { BaScrollToTop } from '../shared/components/scroll-to-top';
+import { BaSidenav } from '../shared/components/sidenav';
 import { BaApp } from './app';
 import { BaRoutingModule } from './app.routing.module';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -36,13 +39,21 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     BrowserAnimationsModule,
     DtThemingModule,
+    RouterModule,
     BaRoutingModule,
     DtIconModule.forRoot({
       svgIconLocation: `${environment.deployUrl}assets/icons/{{name}}.svg`,
     }),
     DtOverlayModule,
+    DtTagModule,
   ],
-  declarations: [BaApp, BaScrollToTop, BaNav, BaFooter],
+  declarations: [
+    BaApp,
+    BaScrollToTop,
+    BaNav,
+    BaFooter,
+    BaSidenav,
+  ],
   bootstrap: [BaApp],
 })
 export class AppModule {}

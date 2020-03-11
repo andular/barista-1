@@ -21,12 +21,14 @@ import {
   OnDestroy,
   QueryList,
   ViewChildren,
+  Inject,
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
-import { BaCategoryNavigationContent } from '@dynatrace/shared/barista-definitions';
 import { fromEvent, Subscription } from 'rxjs';
 import { BaPageService } from '../../shared/services/page.service';
 import { BaTile } from './components/tile';
+import { DOCUMENT } from '@angular/common';
+import { BaCategoryNavigation } from '@dynatrace/shared/barista-definitions';
 
 const LOCALSTORAGEKEY = 'baristaGridview';
 
@@ -34,9 +36,12 @@ const LOCALSTORAGEKEY = 'baristaGridview';
   selector: 'ba-overview-page',
   templateUrl: 'overview-page.html',
   styleUrls: ['overview-page.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
 export class BaOverviewPage implements AfterViewInit, OnDestroy {
-  content = this._pageService._getCurrentPage() as BaCategoryNavigationContent;
+  content = this._pageService._getCurrentPage() as BaCategoryNavigation;
 
   /** @internal whether the tiles are currently displayed as list */
   _listViewActive = true;
@@ -55,6 +60,7 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
   constructor(
     private _platform: Platform,
     private _pageService: BaPageService,
+    @Inject(DOCUMENT) private _document: any,
   ) {
     // check the local storage and set the initial value for the display of the tiles
     if (this._platform.isBrowser && 'localStorage' in window) {
@@ -129,27 +135,25 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
    * with this letter and so on.
    */
   private _focusItem(key: string): void {
-    if (this._platform.isBrowser) {
+    if (
+      key === this._previousKey &&
+      this._document.activeElement !== this._document.body
+    ) {
+      this._counter++;
       if (
-        key === this._previousKey &&
-        document.activeElement !== document.body
+        this._shortcutItems[key] &&
+        this._counter >= this._shortcutItems[key].length
       ) {
-        this._counter++;
-        if (
-          this._shortcutItems[key] &&
-          this._counter >= this._shortcutItems[key].length
-        ) {
-          this._counter = this._counter - this._shortcutItems[key].length;
-        }
-      } else {
-        this._counter = 0;
+        this._counter = this._counter - this._shortcutItems[key].length;
       }
-
-      if (this._shortcutItems[key] && this._shortcutItems[key][this._counter]) {
-        this._shortcutItems[key][this._counter].focus();
-      }
-
-      this._previousKey = key;
+    } else {
+      this._counter = 0;
     }
+
+    if (this._shortcutItems[key] && this._shortcutItems[key][this._counter]) {
+      this._shortcutItems[key][this._counter].focus();
+    }
+
+    this._previousKey = key;
   }
 }

@@ -17,9 +17,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BaSidenav } from '../../shared/components/sidenav';
+import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { BaPageGuard } from '../../shared/services/page-guard';
 import { BaIconOverviewPage } from './icon-overview-page';
+import { BaLazyIcon } from './components/lazy-icon/lazy-icon';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 export const routes: Route[] = [
   {
@@ -30,7 +32,7 @@ export const routes: Route[] = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [BaIconOverviewPage, BaSidenav],
+  imports: [CommonModule, RouterModule.forChild(routes), DtFormFieldModule, DtInputModule],
+  declarations: [BaIconOverviewPage, BaLazyIcon],
 })
 export class BaIconOverviewPageModule {}

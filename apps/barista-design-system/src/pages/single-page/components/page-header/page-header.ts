@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { BaContributors } from '@dynatrace/shared/barista-definitions';
+import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 
 @Component({
   selector: 'ba-page-header',
@@ -27,30 +27,21 @@ import { BaContributors } from '@dynatrace/shared/barista-definitions';
   },
 })
 export class BaPageHeader {
-  /** the title of the current page */
-  @Input() title: string;
+  @Input() content: BaSinglePageContent;
 
-  /** the description of the current page */
-  @Input() description: string;
+  @Input() isIconOverviewPage: boolean;
 
-  /** the contributors of the component on the current page */
-  @Input() contributors: BaContributors;
+  constructor() {
+    console.log('hello I am the page header!!!!');
+  }
 
-  /** additional page properties, such as deprecated, dev utility,.. */
-  @Input() properties: string[];
-
-  /** @internal the link to the component on the current page has a link to the wiki page */
-  @Input() wiki: string;
-
-  /** @internal whether the component on the current page is themeable */
-  @Input() themable: boolean;
-
-  /** @internal */
+  /** @internal Wheter there are contributors to show in the page header */
   get _showContributors(): boolean {
-    return (
-      this.contributors &&
-      ((this.contributors.dev != null && this.contributors.dev.length > 0) ||
-        (this.contributors.ux != null && this.contributors.ux.length > 0))
+    return Boolean(
+      (this.content.contributors?.dev !== undefined &&
+        this.content.contributors?.dev.length > 0) ||
+        (this.content.contributors?.ux !== undefined &&
+          this.content.contributors?.ux.length > 0),
     );
   }
 }

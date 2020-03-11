@@ -15,16 +15,25 @@
  */
 
 import { Component } from '@angular/core';
-import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 import { BaPageService } from '../../shared/services/page.service';
+import { Router } from '@angular/router';
+import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
   styleUrls: ['single-page.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
 export class BaSinglePage {
   content = this._pageService._getCurrentPage() as BaSinglePageContent;
+  isIconOverview = this._router.url.endsWith('resources/icons');
 
-  constructor(private _pageService: BaPageService) {}
+  constructor(
+    private _router: Router,
+    private _pageService: BaPageService) {
+    }
+
 }

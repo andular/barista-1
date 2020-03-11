@@ -1,22 +1,23 @@
 <div class="ba-page-grid" *ngIf="content">
-  <nav ba-sidenav *ngIf="content.sidenav" [sidenavData]="content.sidenav"></nav>
+  <!-- <nav ba-sidenav *ngIf="content.sidenav" [sidenavData]="content.sidenav"></nav> -->
 
   <ba-page-header
-    [title]="content.title"
-    [description]="content.description"
-    [contributors]="content.contributors"
-    [properties]="content.properties"
-    [wiki]="content.wiki"
-    [themable]="content.themable"
+    [content]="content"
+    [isIconOverviewPage]="isIconOverview"
   ></ba-page-header>
 
   <main class="ba-page-main" id="main" role="main">
     <article class="ba-single-page-content">
-      <ba-page-content [data]="content.content"></ba-page-content>
+      <!-- ICON OVERVIEW: {{isIconOverview}} -->
+      <ba-icon-overview-content *ngIf="isIconOverview; else elseBlock"></ba-icon-overview-content>
+      <ng-template #elseBlock>
+        <ba-page-content [data]="content.content"></ba-page-content>
+      </ng-template>  
+
     </article>
   </main>
 
-  <!-- <ba-toc *ngIf="content.toc"></ba-toc> -->
+  <!-- <ba-toc *ngIf="!isIconOverview && content.toc"></ba-toc> -->
 
   <ba-page-footer [tags]="content.tags" [relatedTopics]="content.related">
   </ba-page-footer>
