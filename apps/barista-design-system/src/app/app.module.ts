@@ -25,7 +25,6 @@ import { environment } from '../environments/environment';
 import { BaFooter } from '../shared/components/footer';
 import { BaNav } from '../shared/components/nav';
 import { BaScrollToTop } from '../shared/components/scroll-to-top';
-import { BaPageService } from '../shared/services/page.service';
 import { BaApp } from './app';
 import { BaRoutingModule } from './app.routing.module';
 import { CommonModule } from '@angular/common';
@@ -44,7 +43,6 @@ import { CommonModule } from '@angular/common';
     DtOverlayModule,
   ],
   declarations: [BaApp, BaScrollToTop, BaNav, BaFooter],
-  providers: [BaPageService],
   bootstrap: [BaApp],
 })
 export class AppModule {}

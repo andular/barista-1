@@ -49,7 +49,9 @@ const ERRORPAGE: BaErrorPageContent = {
     "Sorry, an error has occured. Don't worry, we're working to fix the problem!",
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class BaPageService {
   /**
    * @internal
