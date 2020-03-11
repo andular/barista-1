@@ -36,7 +36,8 @@ export class BaPageGuard implements CanActivate {
     _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> {
-    console.log('hello page guard', state.url);
+    // TODO: fix icon overview page with search params
+    // const pagePath = state.url.substr(1).split('?')[0];
     return this._pageService._getPage(state.url.substr(1)).pipe(
       tap(data => {
         if (data.layout === BaPageLayoutType.Error) {

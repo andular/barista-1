@@ -3,13 +3,12 @@
 
   <ba-page-header
     [content]="content"
-    [isIconOverviewPage]="isIconOverview"
+    [isIconOverviewPage]="_isIconOverview"
   ></ba-page-header>
 
   <main class="ba-page-main" id="main" role="main">
     <article class="ba-single-page-content">
-      <!-- ICON OVERVIEW: {{isIconOverview}} -->
-      <ba-icon-overview-content *ngIf="isIconOverview; else elseBlock"></ba-icon-overview-content>
+      <ba-icon-overview-content *ngIf="_isIconOverview; else elseBlock" [icons]="content.icons"></ba-icon-overview-content>
       <ng-template #elseBlock>
         <ba-page-content [data]="content.content"></ba-page-content>
       </ng-template>  
@@ -17,7 +16,7 @@
     </article>
   </main>
 
-  <!-- <ba-toc *ngIf="!isIconOverview && content.toc"></ba-toc> -->
+  <!-- <ba-toc *ngIf="!_isIconOverview && content.toc"></ba-toc> -->
 
   <ba-page-footer [tags]="content.tags" [relatedTopics]="content.related">
   </ba-page-footer>

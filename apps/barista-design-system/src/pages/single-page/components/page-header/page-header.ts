@@ -27,15 +27,13 @@ import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
   },
 })
 export class BaPageHeader {
+  /** The page's content */
   @Input() content: BaSinglePageContent;
 
+  /** Whether the page is the icon overview page */
   @Input() isIconOverviewPage: boolean;
 
-  constructor() {
-    console.log('hello I am the page header!!!!');
-  }
-
-  /** @internal Wheter there are contributors to show in the page header */
+  /** @internal Whether there are contributors to show in the page header */
   get _showContributors(): boolean {
     return Boolean(
       (this.content.contributors?.dev !== undefined &&

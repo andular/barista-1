@@ -27,6 +27,10 @@ import { BaPageHeader } from './components/page-header';
 import { BaIconOverviewContent } from './components/icon-overview-content';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { BaContributors } from './components/contributors';
+import { BaLazyIcon } from './components/lazy-icon';
+import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 export const routes: Route[] = [  
   {
@@ -42,6 +46,9 @@ export const routes: Route[] = [
     RouterModule.forChild(routes),
     BaComponentsModule,
     DtTagModule,
+    DtFormFieldModule,
+    DtInputModule,
+    DtIconModule,
   ],
   declarations: [
     BaSinglePage,
@@ -50,6 +57,7 @@ export const routes: Route[] = [
     BaPageHeader,
     BaIconOverviewContent,
     BaContributors,
+    BaLazyIcon,
     // BaToc,
   ],
 })
