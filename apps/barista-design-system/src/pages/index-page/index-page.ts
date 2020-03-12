@@ -18,7 +18,10 @@ import { Component } from '@angular/core';
 import { BaPageService } from '../../shared/services/page.service';
 // import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { environment } from '../../environments/environment';
-import { BaPageLink } from '@dynatrace/shared/barista-definitions';
+import {
+  BaPageLink,
+  BaSinglePageContent,
+} from '@dynatrace/shared/barista-definitions';
 
 @Component({
   selector: 'ba-index-page',
@@ -31,7 +34,7 @@ import { BaPageLink } from '@dynatrace/shared/barista-definitions';
 export class BaIndexPage {
   content = this._pageService._getCurrentPage();
 
-  constructor(private _pageService: BaPageService) {}
+  constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
   /** @internal whether the internal content should be displayed */
   _internal = environment.internal;
   /** @internal array of recently visited pages */

@@ -15,12 +15,9 @@
  */
 
 import { Component } from '@angular/core';
-import { BaPageService } from '../../shared/services/page.service';
 import { Router } from '@angular/router';
-// import {
-//   BaSinglePageContent,
-//   BaIconOverviewPageContent,
-// } from '@dynatrace/shared/barista-definitions';
+import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import { BaPageService } from '../../shared/services/page.service';
 
 @Component({
   selector: 'ba-single-page',
@@ -31,15 +28,13 @@ import { Router } from '@angular/router';
   },
 })
 export class BaSinglePage {
-
-  // Yes, this should definitely not be any...
-  // TODO: how to solve the problem with having 2 very different types for the page content?
-  content = this._pageService._getCurrentPage() as any;
+  content = this._pageService._getCurrentPage();
 
   /** @internal Whether the page is the icon overview page */
   _isIconOverview = this._router.url.startsWith('/resources/icons');
 
-  constructor(private _router: Router, private _pageService: BaPageService) {
-  }
-
+  constructor(
+    private _router: Router,
+    private _pageService: BaPageService<BaSinglePageContent>,
+  ) {}
 }

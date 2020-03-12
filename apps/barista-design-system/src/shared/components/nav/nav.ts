@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-
-const CONTENT_PATH_PREFIX = 'data/';
+import { BaNav as Navigation } from '@dynatrace/shared/barista-definitions';
+import { BaPageService } from '../../services/page.service';
 
 @Component({
   selector: 'ba-nav',
@@ -31,13 +28,10 @@ const CONTENT_PATH_PREFIX = 'data/';
 })
 export class BaNav {
   /** @internal Data needed to render the navigation. */
-  _navData$: Observable<any>;
+  _navData$ = this._pageService._getPage('nav');
 
   /** @internal whether the menu is shown in the mobile version */
   _showMenu = false;
 
-  constructor(http: HttpClient) {
-    const requestPath = `${environment.dataHost}${CONTENT_PATH_PREFIX}nav.json`;
-    this._navData$ = http.get(requestPath, { responseType: 'json' });
-  }
+  constructor(private _pageService: BaPageService<Navigation>) {}
 }

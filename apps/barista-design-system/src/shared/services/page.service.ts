@@ -14,58 +14,46 @@
  * limitations under the License.
  */
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AsyncSubject, Observable, of } from 'rxjs';
-import { catchError, map, switchMap, pluck, tap } from 'rxjs/operators';
-
-import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 import {
-  BaSinglePageContent,
-  BaPageLayoutType,
   BaErrorPageContent,
-  BaCategoryNavigationContent,
-  BaIconOverviewPageContent,
+  BaPageLayoutType,
 } from '@dynatrace/shared/barista-definitions';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  RouterState,
-  Router,
-} from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 const CONTENT_PATH_PREFIX = 'data/';
 
-const ERRORPAGE_404: BaErrorPageContent = {
+const ERROR_PAGE_404: BaErrorPageContent = {
   title: 'Error 404',
   layout: BaPageLayoutType.Error,
   content:
     'Sorry, the page you tried to access does not exist. Are you using an outdated link?',
 };
 
-const ERRORPAGE: BaErrorPageContent = {
+const ERROR_PAGE: BaErrorPageContent = {
   title: 'Oops!',
   layout: BaPageLayoutType.Error,
   content:
-    "Sorry, an error has occured. Don't worry, we're working to fix the problem!",
+    "Sorry, an error has occurred. Don't worry, we're working to fix the problem!",
 };
 
 @Injectable({
   providedIn: 'root',
 })
-export class BaPageService {
+export class BaPageService<T = any> {
   /**
    * @internal
    * Caches pages once they have been loaded.
    */
-  _cache = new Map<string, BaSinglePageContent>([['not-found', ERRORPAGE]]);
-
-  /**
-   * The current page that should be displayed.
-   */
-  currentPage: Observable<BaSinglePageContent>;
+  _cache = new Map<string, T>();
 
   constructor(private _http: HttpClient, private _router: Router) {
+    this._cache.set('not-found', ERROR_PAGE as any);
+    this._cache.set('404', ERROR_PAGE_404 as any);
     // // Whenever the URL changes we try to get the appropriate doc
     // this.currentPage = location.currentPath$.pipe(
     //   switchMap(path => this._getPage(path)),
@@ -80,7 +68,7 @@ export class BaPageService {
     // );
   }
 
-  _getCurrentPage(): BaSinglePageContent | BaCategoryNavigationContent | BaIconOverviewPageContent | null {
+  _getCurrentPage(): T | null {
     const page = this._cache.get(getPageKeyFromUrl(this._router.url));
 
     if (!page) {
@@ -95,8 +83,7 @@ export class BaPageService {
    * Gets page from cache.
    * @param url - path to page
    */
-  _getPage(url: string): Observable<BaSinglePageContent> {
-    console.log('getting page:', url);
+  _getPage(url: string): Observable<T> {
     const key = getPageKeyFromUrl(url);
 
     if (!this._cache.has(key)) {
@@ -109,15 +96,15 @@ export class BaPageService {
    * Fetches page from data source.
    * @param id - page id (path).
    */
-  private _fetchPage(id: string): Observable<BaSinglePageContent> {
+  private _fetchPage(id: string): Observable<T> {
     const requestPath = `${environment.dataHost}${CONTENT_PATH_PREFIX}${id}.json`;
 
     return this._http
-      .get<BaSinglePageContent>(requestPath, { responseType: 'json' })
+      .get<T>(requestPath, { responseType: 'json' })
       .pipe(
-        catchError((error: HttpErrorResponse) =>
-          of(error.status === 404 ? ERRORPAGE_404 : ERRORPAGE),
-        ),
+        // catchError((error: HttpErrorResponse) =>
+        //   of(error.status === 404 ? ERRORPAGE_404 : ERRORPAGE),
+        // ),
         tap(data => this._cache.set(id, data)),
       );
   }
