@@ -32,7 +32,7 @@ import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-export const routes: Route[] = [  
+export const routes: Route[] = [
   {
     path: '',
     component: BaSinglePage,

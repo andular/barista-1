@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './icon-overview-content'
+export * from './icon-overview-content';

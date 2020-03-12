@@ -70,7 +70,6 @@ export interface BaIconOverviewPageContent extends BaPageMetaBase {
   category?: string;
 }
 
-
 /** Main navigation */
 export interface BaNav {
   navItems: BaNavItem[];
@@ -150,7 +149,7 @@ export interface BaContributors {
   ux?: BaContributor[];
 }
 
-export type BaContentTypes = 
+export type BaContentTypes =
   | BaSinglePageContent
   | BaErrorPageContent
   | BaIndexPageContent

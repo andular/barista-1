@@ -47,13 +47,7 @@ import { BaRoutingModule } from './app.routing.module';
     DtOverlayModule,
     DtTagModule,
   ],
-  declarations: [
-    BaApp,
-    BaScrollToTop,
-    BaNav,
-    BaFooter,
-    BaSidenav,
-  ],
+  declarations: [BaApp, BaScrollToTop, BaNav, BaFooter, BaSidenav],
   bootstrap: [BaApp],
 })
 export class AppModule {}
