@@ -31,9 +31,10 @@ jobs:
 
       - name: Build Barista Design System
         run: |
+          npm run examples-tools
           npm run barista-tools
-          npm run ng run barista-design-system:build
-          npm run ng run barista-design-system:build-server
+          npm run ng build workspace
+          npm run ng run barista-design-system:render:production
 
       - name: ZEIT Now Deployment
         uses: amondnet/now-deployment@v1

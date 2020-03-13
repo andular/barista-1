@@ -8,10 +8,7 @@
     "noUnusedParameters": false
   },
   "files": ["src/main.server.ts", "src/server.ts"],
-  "include": [
-    "**/*.d.ts",
-    "../../libs/examples/src/*/index.ts",
-  ],
+  "include": ["**/*.d.ts", "../../libs/examples/src/*/index.ts"],
   "exclude": [
     "./src/main.ts",
     "./src/polyfills.ts",
