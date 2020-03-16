@@ -28,6 +28,7 @@ import {
   ViewEncapsulation,
   Input,
 } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Subscription, timer } from 'rxjs';
 
 import {
@@ -53,7 +54,10 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
-  constructor(private _cd: ChangeDetectorRef) {}
+  constructor(
+    private _cd: ChangeDetectorRef,
+    private cdkClipboard: Clipboard,
+  ) {}
 
   /** Defines the button variant of the copy button. */
   @Input() variant: ButtonVariant = 'primary';
@@ -89,26 +93,25 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   /** Copies the provided content to the clipboard. */
   copyToClipboard(): void {
     if (this._input) {
-      this._input.nativeElement.select();
-      const copyResult = document.execCommand('copy');
-      if (!copyResult) {
-        this.copyFailed.emit();
-        return;
-      }
-      this._showIcon = true;
-      _addCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-      if (this._copyButton) {
-        _addCssClass(
-          this._copyButton.nativeElement,
-          DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
-        );
-        this._copyButton.nativeElement.focus();
-      }
+      this._input.nativeElement.textContent !== null
+        ? this.cdkClipboard.copy(this._input.nativeElement.textContent)
+        : this.copyFailed.emit();
+    }
+  }
+
+  copiedToClipboard(): void {
+    this._showIcon = true;
+    _addCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+    if (this._copyButton) {
+      _addCssClass(
+        this._copyButton.nativeElement,
+        DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
+      );
+      this._copyButton.nativeElement.focus();
     }
 
     this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
       this._resetCopyState();
-
       this.afterCopy.emit();
     });
     this.copied.emit();
