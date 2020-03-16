@@ -15,7 +15,7 @@
  */
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   BaErrorPageContent,
@@ -24,6 +24,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { DOCUMENT } from '@angular/common';
 
 const CONTENT_PATH_PREFIX = 'data/';
 
@@ -51,25 +52,18 @@ export class BaPageService<T = any> {
    */
   _cache = new Map<string, T>();
 
-  constructor(private _http: HttpClient, private _router: Router) {
+  constructor(
+    private _http: HttpClient,
+    private _router: Router,
+    @Inject(DOCUMENT) private _document: any,
+  ) {
     this._cache.set('not-found', ERROR_PAGE as any);
     this._cache.set('404', ERROR_PAGE_404 as any);
-    // // Whenever the URL changes we try to get the appropriate doc
-    // this.currentPage = location.currentPath$.pipe(
-    //   switchMap(path => this._getPage(path)),
-    // );
-    // // Populate the cache with the search page so that it is always available.
-    // this._cache.set(
-    //   'search',
-    //   of({
-    //     layout: BaPageLayoutType.Search,
-    //     title: 'Search results',
-    //   } as BaSinglePageContent),
-    // );
   }
 
   _getCurrentPage(): T | null {
-    const page = this._cache.get(getPageKeyFromUrl(this._router.url));
+    const key = getPageKeyFromUrl(this._document, this._router.url);
+    const page = this._cache.get(key);
 
     if (!page) {
       this._router.navigate(['not-found']);
@@ -84,7 +78,7 @@ export class BaPageService<T = any> {
    * @param url - path to page
    */
   _getPage(url: string): Observable<T> {
-    const key = getPageKeyFromUrl(url);
+    const key = getPageKeyFromUrl(this._document, url);
 
     if (!this._cache.has(key)) {
       return this._fetchPage(key);
@@ -101,18 +95,25 @@ export class BaPageService<T = any> {
 
     return this._http
       .get<T>(requestPath, { responseType: 'json' })
-      .pipe(
-        // catchError((error: HttpErrorResponse) =>
-        //   of(error.status === 404 ? ERRORPAGE_404 : ERRORPAGE),
-        // ),
-        tap(data => this._cache.set(id, data)),
-      );
+      .pipe(tap(data => this._cache.set(id, data)));
   }
 }
 
 /** Provides the cache key for a url */
-function getPageKeyFromUrl(url: string): string {
+export function getPageKeyFromUrl(document: Document, url: string): string {
   // remove the leading slash if there is one
-  const key = url.replace(/^\//, '');
+  const key = getUrlPathName(document, url);
   return !key.length ? 'index' : key;
+}
+
+/**
+ * Normalizes a url and removes hashes and parameters,
+ * returns the current pathname
+ */
+export function getUrlPathName(document: Document, url: string): string {
+  // Use the browsers capabilities to get the pathname out of an url
+  // with an anchor element this strips hashes and query params away from the url
+  const a = document.createElement('a');
+  a.href = url;
+  return a.pathname.substr(1);
 }

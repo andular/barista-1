@@ -68,7 +68,7 @@ export class BaScrollSpiedElementGroup {
   }
 
   /*
-   * Caclulate the `top` value of each ScrollSpiedElement of this group (based on te current
+   * Calculate the `top` value of each ScrollSpiedElement of this group (based on te current
    * `scrollTop` and `topOffset` values), so that the active element can be later determined just by
    * comparing its `top` property with the then current `scrollTop`.
    */

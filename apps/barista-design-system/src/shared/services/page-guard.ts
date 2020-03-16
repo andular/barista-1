@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -24,21 +24,25 @@ import {
 import { BaPageLayoutType } from '@dynatrace/shared/barista-definitions';
 import { Observable } from 'rxjs';
 import { mapTo, tap } from 'rxjs/operators';
-import { BaPageService } from './page.service';
+import { BaPageService, getUrlPathName } from './page.service';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaPageGuard implements CanActivate {
-  constructor(private _pageService: BaPageService, private _router: Router) {}
+  constructor(
+    private _pageService: BaPageService,
+    private _router: Router,
+    @Inject(DOCUMENT) private _document: any,
+  ) {}
 
   canActivate(
     _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> {
-    // TODO: fix icon overview page with search params
-    // const pagePath = state.url.substr(1).split('?')[0];
-    return this._pageService._getPage(state.url.substr(1)).pipe(
+    const url = getUrlPathName(this._document, state.url);
+    return this._pageService._getPage(url).pipe(
       tap(data => {
         if (data.layout === BaPageLayoutType.Error) {
           this._router.navigate(['not-found']);

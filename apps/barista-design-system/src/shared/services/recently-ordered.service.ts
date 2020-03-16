@@ -21,6 +21,7 @@ import {
   BaIconOverviewPageContent,
   BaPageLink,
 } from '@dynatrace/shared/barista-definitions';
+import { Platform } from '@angular/cdk/platform';
 
 const LOCALSTORAGEKEY = 'recentlyordered';
 const NUMBER_OF_RECENT_ITEMS = 7;
@@ -29,8 +30,8 @@ const NUMBER_OF_RECENT_ITEMS = 7;
 export class BaRecentlyOrderedService {
   orderedItems: (BaPageLink | null)[] = [];
 
-  constructor() {
-    if ('localStorage' in window) {
+  constructor(platform: Platform) {
+    if (platform.isBrowser) {
       const recentlyOrderedInStorage = localStorage.getItem(LOCALSTORAGEKEY);
       this.orderedItems = recentlyOrderedInStorage
         ? JSON.parse(recentlyOrderedInStorage)
