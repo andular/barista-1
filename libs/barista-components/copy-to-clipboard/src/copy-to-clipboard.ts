@@ -55,8 +55,8 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
 })
 export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   constructor(
-    private _cd: ChangeDetectorRef,
-    private cdkClipboard: Clipboard,
+    private _changeDetector: ChangeDetectorRef,
+    private _cdkClipboard: Clipboard,
   ) {}
 
   /** Defines the button variant of the copy button. */
@@ -92,14 +92,15 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
 
   /** Copies the provided content to the clipboard. */
   copyToClipboard(): void {
-    if (this._input) {
-      this._input.nativeElement.textContent !== null
-        ? this.cdkClipboard.copy(this._input.nativeElement.textContent)
-        : this.copyFailed.emit();
+    if (this._input && this._input.nativeElement.textContent !== null) {
+      this._cdkClipboard.copy(this._input.nativeElement.textContent);
+    } else {
+      this.copyFailed.emit();
     }
   }
 
-  copiedToClipboard(): void {
+  /** @internal Resets copy button style and emits a stream when finished */
+  _copiedToClipboard(): void {
     this._showIcon = true;
     _addCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     if (this._copyButton) {
@@ -126,7 +127,7 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
         DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
       );
     }
-    this._cd.markForCheck();
+    this._changeDetector.markForCheck();
     this._timer.unsubscribe();
   }
 

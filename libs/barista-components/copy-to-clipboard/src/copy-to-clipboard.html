@@ -8,7 +8,7 @@
   [variant]="variant"
   #copyButton
   [cdkCopyToClipboard]="copyToClipboard()"
-  (cdkCopyToClipboardCopied)="copiedToClipboard()"
+  (cdkCopyToClipboardCopied)="_copiedToClipboard()"
 >
   <dt-icon *ngIf="showIcon" name="checkmark"></dt-icon>
   <ng-content
