@@ -18,7 +18,10 @@ import { Component } from '@angular/core';
 import { BaPageService } from '../../shared/services/page.service';
 import { environment } from '../../environments/environment';
 import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
-import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
+import {
+  BaRecentlyOrderedService,
+  BaRecentlyOrderedItem,
+} from '../../shared/services/recently-ordered.service';
 
 @Component({
   selector: 'ba-index-page',
@@ -34,12 +37,17 @@ export class BaIndexPage {
   /** @internal whether the internal content should be displayed */
   _internal = environment.internal;
   /** @internal array of recently visited pages */
-  _orderedItems = this._recentlyOrderedService.getPages();
+  _orderedItems: (BaRecentlyOrderedItem | undefined)[] = [];
   /** @internal whether recently ordered items should be displayed */
-  _showOrderedItems = Boolean(this._orderedItems.length > 0);
+  _showOrderedItems: boolean = false;
 
   constructor(
     private _pageService: BaPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
-  ) {}
+  ) {
+    const items = this._recentlyOrderedService.getPages();
+    this._showOrderedItems = Boolean(items.length > 0);
+    // create the ghost tiles to fill up the remaining space
+    this._orderedItems = [...items, ...new Array(7 - items.length)];
+  }
 }
