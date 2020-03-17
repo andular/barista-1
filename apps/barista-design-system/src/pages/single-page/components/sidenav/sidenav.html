@@ -5,7 +5,7 @@
   <a
     class="ba-sidenav-item"
     *ngFor="let item of section.items"
-    [routerLink]="_getLink(item.link)"
+    [routerLink]="item.link"
     routerLinkActive="ba-sidenav-item-active"
   >
     <span class="ba-sidenav-item-headline">

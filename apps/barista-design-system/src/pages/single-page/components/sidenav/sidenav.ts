@@ -27,8 +27,4 @@ import { Component, Input } from '@angular/core';
 export class BaSidenav {
   /** all sidenav items */
   @Input() sidenavData;
-
-  _getLink(link: string): string[] {
-    return ['/', ...link.split('/')];
-  }
 }
