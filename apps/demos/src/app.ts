@@ -16,7 +16,7 @@
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DT_DEMOS_EXAMPLE_NAV_ITEMS } from './nav-items';
-
+import '@dynatrace/barista-elements/button';
 @Component({
   selector: 'dt-demos',
   styleUrls: ['app.scss'],

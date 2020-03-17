@@ -3327,6 +3327,35 @@
           }
         }
       }
+    },
+    "barista-elements-button": {
+      "root": "libs/barista-elements/button",
+      "sourceRoot": "libs/barista-elements/button/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-elements/button/tsconfig.lib.json",
+              "libs/barista-elements/button/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-elements/button/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-elements/button/jest.config.js",
+            "tsConfig": "libs/barista-elements/button/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "dev",

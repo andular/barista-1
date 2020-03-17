@@ -304,6 +304,9 @@
     },
     "testing-fixtures": {
       "tags": ["scope:testing", "type:library"]
+    },
+    "barista-elements-button": {
+      "tags": ["scope:elements", "type:library"]
     }
   }
 }
